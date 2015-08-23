@@ -2,9 +2,6 @@
 写给自己看的webGL教程
 
 
-参考[learningwebgl.com](http://learningwebgl.com/blog/?page_id=1217)
-
-
 
 # 写在前面
 
@@ -27,7 +24,9 @@
 
 在这里推荐使用最新版本的Chrome浏览器，默认启动WebGL
 
+### 3.本文基于自己对于[learningwebgl.com](http://learningwebgl.com/blog/?page_id=1217)的理解，默认的代码引入`http://learningwebgl.com/lessons/lesson01/glMatrix-0.9.5.min.js`
 
+### 4.初学图形学,问题和建议可以直接发`issue`
 
 # 目录
 
