@@ -2,9 +2,6 @@
 写给自己看的webGL教程
 
 
-
-# 写在前面
-
 ### 初识WEBGL
 
 假设你和我一样有一定的前端基础，而且又对于图形学很感兴趣，在`CSS`/`canvas`/`svg`之外的领域想要去学习更多的知识，
@@ -24,10 +21,14 @@
 
 在这里推荐使用最新版本的Chrome浏览器，默认启动WebGL
 
-### 3.本文基于自己对于[learningwebgl.com](http://learningwebgl.com/blog/?page_id=1217)的理解，默认的代码引入`http://learningwebgl.com/lessons/lesson01/glMatrix-0.9.5.min.js`
+### 3.本文基于自己对于[learningwebgl.com](http://learningwebgl.com/blog/?page_id=1217)的理解
 
-### 4.初学图形学,问题和建议可以直接发`issue`
+默认的代码引入`http://learningwebgl.com/lessons/lesson01/glMatrix-0.9.5.min.js`
+
+### 4.本文所有内容都属于自己理解
+
+初学图形学,问题和建议可以直接发`issue`
 
 # 目录
 
-1. 开启轮回之门[https://github.com/VinthonyLab/webgl-tutorial/blob/master/]
+1.[开启轮回之门](https://github.com/VinthonyLab/webgl-tutorial/blob/master/)
