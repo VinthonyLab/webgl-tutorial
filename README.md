@@ -31,4 +31,4 @@
 
 # 目录
 
-1.[开启轮回之门](https://github.com/VinthonyLab/webgl-tutorial/blob/master/)
+1.[开启轮回之门](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/trangle-and-square.md)
