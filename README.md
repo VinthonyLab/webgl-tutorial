@@ -31,5 +31,5 @@
 
 # 目录
 
-1.[开启轮回之门](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/trangle-and-square.md)
-2.[Colorful Days](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/add-color.md)
+1. [开启轮回之门](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/trangle-and-square.md)
+2. [Colorful Days](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/add-color.md)

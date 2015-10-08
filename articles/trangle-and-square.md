@@ -16,25 +16,25 @@
 ```
 
 典型的HTML结构，定义了head、body等等，在这里需要注意的是我们定义了一个canvas作为webGL的容器，
-当页面加载完成时执行`webGLStart()`函数来绘制图形。
+当页面加载完成时执行`webGLStart()`函数开始对画板进行渲染。
 
-之后对于webgl的行为我们在`script`标签中进行描述。
+之后对于webgl的行为我们使用javascript来进行描述``
 
 ## 行为
 
-接下来我们来开始进入神奇的webgl的世界，首先我们实现之前定义过得`webGLStart`
+接下来我们来开始进入神奇的webgl的世界，首先我们实现之前定义过的`webGLStart`函数，这个函数是整个webGL的入口
 
 ```js
 function webGLStart(){
-	var canvas = document.querySelector('#webgl-container');
-	initGL(canvas);
-	initShaders();
-	initBuffers();
+	var canvas = document.querySelector('#webgl-container'); //获取canvas的DOM节点
+	initGL(canvas); //初始化WebGL
+	initShaders(); //初始化Shader
+	initBuffers(); //初始化Buffer
 
-	gl.clearColor(0.0,0.0,0.0,1.0);
-	gl.enable(gl.DEPTH_TEST);
+	gl.clearColor(0.0,0.0,0.0,1.0); //清除页面颜色
+	gl.enable(gl.DEPTH_TEST); //开启深度测试
 
-	drawScene();
+	drawScene(); //绘制图形
 }
 
 ```
@@ -64,11 +64,12 @@ function initGL(canvas){
 	}
 }
 
+```
+
 #### initShader
 
-```
 然后我们再来想想接下来该如何去做，纸准备好了当然还需要笔，所以在initShaders这个函数中，我们用来定义“画笔”:
-shader的意思其实是我们所画的图像在执行渲染任务时使用的指令。接下来我们一步步来探索如何编写这个函数：
+Shader的意思其实是我们去告诉计算机在哪儿去画（渲）图（染）。接下来我们一步步来探索如何编写这个函数：
 
 ```js
 function initShaders(){
@@ -92,13 +93,22 @@ function initShaders(){
 	}
 
 ```
-在这个函数中我们首先从`shader-fs`和`shader-vs`中得到fragmentShader和vertexShader，
-这两个shader是什么东西呢？
+
+这个函数做了以下几件事：
+* 利用`getShader`函数获得到了`fragmentShader(fs)`和`vertexShader(vs)`
+* 将`shader`传入gl作用域，然后编译了一个`program`来处理webGL
+* 将所需要使用的`aVertexPosition`,`uPMatrix`,`uMvMatrix`的地址传递给program
+
+这两个`shader`是什么东西呢？
+
 > [stackoverflow.com](http://stackoverflow.com/questions/4421261/vertex-shader-vs-fragment-shader)
-我们知道我们的物体有点和面，fragmentShader对应的就是面的渲染器，能够实现某个面的特殊的效果，而vertexShader则更多的是关于顶点着色的
-之后在shader中，我们创建了一个program，并且将所获得的shader连接到program中，接下来的getUniformLocation为或得这个shaderProgram中
-这两个变量`uPMatrix`和`uMVMatrix`的位置，并且赋值到shaderProgram中，为了方便JS去调用，在这里JavaScript的语言特性就比较方便，尽管没有这些属性，还是能够直接使用shaderProgram.XXXX来进行赋值。
-而`aVertexPositon`，`uPMatrix`，`uMVMatrix`是从哪儿来的呢？我们在getShader中寻找它的奥秘。
+我们知道我们的物体有点和面，fragmentShader对应的就是面的渲染器，能够实现对面的操作效果（例如贴材质，给面上色等等），而vertexShader则更多的是关于顶点着色的
+
+`Program`又是什么东西？
+program可以说就是你使用你的fragmentShdaer和vertexShader所编译出的上下文作用域，当有不同的fragmentshader和vertexshader时，可以建立不同的shader来分别处理他们。
+
+`getUniformLocation`这个函数用来做什么？
+我们通过传入fs和vs来得到一个program之后，program就包含了在fs和vs中定义的变量的索引，getUnifromLocation就是获取uniform类型的变量的索引，方便在webgl函数中将数据传递到glsl中去。
 
 #### getShader
 
@@ -128,13 +138,15 @@ WOW,之前的你肯定只在`script`标签中写过JavaScript。
 其实这就是Graphics Language Shader Language(GLSL)，我们通过在这里定义的shader，实现与GPU的交互。
 
 在`fragment shader`中我们定义了一个[precision mediump float;](http://stackoverflow.com/questions/13780609/what-does-precision-mediump-float-mean),这一句实际上是定义了GPU处理浮点数的精度，暂且不谈。
-在下面的main函数中，我们将整个材质的颜色定义为`vec4(x,y,z,t)`的值。
+在下面的main函数中，我们将颜色定义为`vec4(r,g,b,a)`的值。，其中gl_FragColor 是一个内置变量，代表了颜色数据。
 
-> vec4 是有四个参数的四维向量，在这里我们使用单位向量去定义
+> vec4 是有四个参数的四维向量在这里代表了RGBA四个颜色通道
 
-在`vertex shader`中我们定义了类型为`vec3`的`attribute`变量`aVertexPosition` 在之前的`initShader`函数中，我们就是使用了`getAttribLocation`来得到这个变量的数据。
+在`vertex shader`中我们定义了类型为`vec3`的`attribute`变量`aVertexPosition` ，表示三维坐标点的位置，之后我们通过vec4这个构造函数将三维坐标点
+转化为四维，并且乘以两个变换矩阵来得到它的位置信息。为什么要转换成四维的呢，因为如同下一段代码里介绍，mvMatrix和pMatrix都是四维矩阵。
 
-同理我们定义了类型为`mat4`的`uniform`变量`uMVMatrix`和`uPMatrix`，同样使用`getUniformLocation`来获得这些数据,为了使用这两个变量。我们还需要定义如下的函数：
+接下来我们在webgl代码中定义了mv矩阵和p矩阵:
+
 ```js
 var mvMatrix = mat4.create();
 var pMatrix = mat4.create();
@@ -144,7 +156,7 @@ function setMatrixUniforms(){
 }
 
 ```
-这个函数初始化了这两个矩阵变量，并且将它指向所在的location
+这个函数初始化了这两个矩阵变量,然后利用shaderProgram里存入的位置ID，将pMatrix和mvMatrix这两个矩阵的信息传入到shader中去。
 
 > mat4 vs vec3
 > 这里涉及到了glsl的数据类型
@@ -222,11 +234,17 @@ function initBuffers(){
 并且将这个buffer绑定到`gl.ARRAY_BUFFER`之中去。
 **`gl.ARRAY_BUFFER`**是[什么鬼](http://stackoverflow.com/questions/14802854/what-does-the-target-gl-array-buffer-mean-in-glbindbuffer)呢？
 这其实GLSL只是在内部定义的一个地址，将向量数据绑定到这个地址中去使用。
-接下来我们定义了一个矩阵的数组
+接下来我们定义了一个矩阵的数组，注意这个矩阵形式和数学中得矩阵表示方法并不一样，比如在数学中，我们有如下的矩阵
 ```
-x1,y1,z1,
-x2,y2,z2,
-x3,y3,z3
+ |  0.0, 1.0, 2.0  |
+ |  3.0, 4.0, 5.0  |
+ |  6.0, 7.0, 8.0  |
+ 
+```
+```
+| 0.0, 3.0, 6.0 |
+| 1.0, 4.0, 7.0 |
+| 2.0, 5.0, 8.0 |
 
 ```
 bufferdata这个函数将vertices的数据绑定到gl.ARRAY_BUFFER中。
@@ -285,6 +303,6 @@ function drawScene(){
 ```
 
 至此我们的三角形和正方形就算是画完了。完整的代码可以戳这里[
-https://github.com/VinthonyLab/webgl-tutorial/blob/master/trangle-and-square.md]
+https://github.com/VinthonyLab/webgl-tutorial/blob/master/examples/1.htmlttps://github.com/VinithonyLab/wddebgl-tutorial/blob/master/trangle-and-square.md]
 
 之后会介绍更多关于webgl的知识，不要走开哟。
