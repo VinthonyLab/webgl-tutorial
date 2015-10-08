@@ -23,13 +23,11 @@
 
 ### 3.本文基于自己对于[learningwebgl.com](http://learningwebgl.com/blog/?page_id=1217)的理解
 
-默认的代码引入`http://learningwebgl.com/lessons/lesson01/glMatrix-0.9.5.min.js`
-
 ### 4.本文所有内容都属于自己理解
 
 初学图形学,问题和建议可以直接发`issue`
 
 # 目录
 
-1. [开启轮回之门](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/trangle-and-square.md)
-2. [Colorful Days](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/add-color.md)
+1. [开启轮回之门](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/lesson1.md)
+2. [Colorful Days](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/lesson2.md)
