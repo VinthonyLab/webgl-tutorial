@@ -302,7 +302,7 @@ function drawScene(){
 }
 ```
 
-至此我们的三角形和正方形就算是画完了。完整的代码可以戳这里[
-https://github.com/VinthonyLab/webgl-tutorial/blob/master/examples/1.htmlttps://github.com/VinithonyLab/wddebgl-tutorial/blob/master/trangle-and-square.md]
+至此我们的三角形和正方形就算是画完了。完整的代码可以戳[这里](
+https://github.com/VinthonyLab/webgl-tutorial/blob/master/examples/1.html)
 
 之后会介绍更多关于webgl的知识，不要走开哟。
