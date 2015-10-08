@@ -173,6 +173,7 @@ function getShader(gl,id){
 }
 ```
 这个函数主要做了两件事：
+
 1. 获取到shader的dom，将所有的shader中的文本提取出来
 2. 编译shader并返回
 
@@ -201,9 +202,10 @@ function initBuffers(){
 在这段代码里，我们创建了一段buffer用来存储三角形的顶点数据，
 并且将这个buffer绑定到`gl.ARRAY_BUFFER`之中去。
 **`gl.ARRAY_BUFFER`**是[什么鬼](http://stackoverflow.com/questions/14802854/what-does-the-target-gl-array-buffer-mean-in-glbindbuffer)呢？这其实GLSL只是在内部定义的一个地址，将向量数据绑定到这个地址中去使用。
-接下来我们定义了一个矩阵的数组用来存储我们三角形的顶点坐标。
+接下来我们定义了一个矩阵的数组用来存储我们三角形的顶点坐标。在WebGL中，我们使用`[-1,1]`的坐标点来描绘整个象限。
 
 >注意这个矩阵形式和数学中得矩阵表示方法并不一样，比如在数学中，我们有如下的矩阵
+> ```
 > |  0.0, 1.0, 2.0  |
 > |  3.0, 4.0, 5.0  |
 > |  6.0, 7.0, 8.0  |
@@ -211,6 +213,7 @@ function initBuffers(){
 > |  0.0, 3.0, 6.0  |
 > |  1.0, 4.0, 7.0  |
 > |  2.0, 5.0, 8.0  |
+> ```
 
 bufferdata这个函数将vertices的数据绑定到gl.ARRAY_BUFFER中。
 而在最后两行，通过设置buffer的itemSize和numItems表示出三维(x,y,z)和点的数量(x1,x2,x3);
@@ -240,4 +243,8 @@ function drawScene(){
 至此我们的三角形就算是画完了。完整的代码可以戳[这里](
 https://github.com/VinthonyLab/webgl-tutorial/blob/master/examples/1.html)
 
-之后会介绍更多关于webgl的知识，不要走开哟。
+有了以上的介绍，相信你已经对于webGL有了最基本的了解，下面留一个小作业：
+
+> 如何在WebGL中绘制一个正方形呢？ 长方形呢？
+
+试试做一下咯。之后会介绍更多关于webgl的知识，不要走开哟。
