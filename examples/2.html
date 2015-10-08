@@ -24,7 +24,7 @@
 
 	  void main(void) {
 	    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-	    	vColor = aVertexColor;
+	    vColor = aVertexColor;
 	  }
 	</script>
 	
@@ -127,13 +127,13 @@
 		var colors = [
 			1.0,0.0,0.0,1.0,
 			0.0,1.0,0.0,1.0,
-			0.0,0.0,1.0,1.0
+			0.0,0.0,1.0,1.0;
 		];
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
 		triangleVertexColorBuffer.itemSize = 4;
 		triangleVertexColorBuffer.numItems = 3;
 
-		squareVertexPositionBuffer = gl.createBuffer();
+		squareVertexPositionBuffer = gl.createBuffer()
 		gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
 		vertices = [
 			1.0,1.0,0.0,
