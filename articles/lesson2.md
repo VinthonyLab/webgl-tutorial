@@ -8,7 +8,7 @@
 
 ![the process of vertex](http://learningwebgl.com/lessons/lesson02/simple-rendering-pipeline.png)
 
-首先在我们javascript的代码中，我们定义的变量在`drawScene`函数中使用`vertexAttribPointer`这个函数将vertex数据传递到shaderProgram的attribute类型变量和将uniform类型的变量传递到vertex-shader中。vertex-shader中有一个必须的变量--`gl_Position`,表明了包含的定点的坐标，当vertex-shader完成之后，`webGL`程序调用fragment-shader，fragment-shader会逐个像素点来渲染图像。所以有些时候我们将fragment-shader称作`pixel-shader`。在fragment-shader中，我们必须去定义`gl_FragColor`，它为varying类型的变量，表示的是渲染像素点与点之间的颜色。之后，当我们进行完fragment-shader，所有的数据将会放入`frame buffer`，这才是之后我们会在屏幕上看到的内容，我们将在后面继续介绍它。
+首先在我们javascript的代码中，我们定义的变量在`drawScene`函数中使用`vertexAttribPointer`这个函数将vertex数据传递到shaderProgram的attribute类型变量和将uniform类型的变量传递到vertex-shader中。vertex-shader中有一个必须的变量--`gl_Position`,表明了包含的定点的坐标，当vertex-shader完成之后，`webGL`程序调用fragment-shader，fragment-shader会逐个像素点来渲染图像。所以有些时候我们将fragment-shader称作`pixel-shader`。在fragment-shader中，我们必须去定义`gl_FragColor`。之所以这里使用了verying类型的数据，其实是这个数据是从webGL程序传入vertexShader然后再通过vertexShader传入fragmentshader，所以`verying`类型表示在两个fragment传递时所要表示的数据类型，当我们进行完fragment-shader，所有的数据将会放入`frame buffer`，这才是之后我们会在屏幕上看到的内容，我们将在后面继续介绍它。
 
 所以在这里我们先来看看相比于第一节的代码，本节的代码又有哪些改变呢？
 
