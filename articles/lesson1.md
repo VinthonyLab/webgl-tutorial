@@ -77,18 +77,21 @@ function initGL(canvas){
 Shader的意思其实是我们去告诉计算机在哪儿去画（渲）图（染）。下面的代码展示了最简单的shader：
 
 ```html
-<script id='shader-fs' type='x-shader/x-fragment'>
-	precision mediump float;
-	void main(void){
-		gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-	}
-</script>
+
 <script id='shader-vs' type='x-shader/x-vertex'>
 	attribute vec3 aVertexPosition;
 	void main(void){
 		gl_Position = vec4(aVertexPosition,1.0);
 	}
 </script>
+
+<script id='shader-fs' type='x-shader/x-fragment'>
+	precision mediump float;
+	void main(void){
+		gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+	}
+</script>
+
 
 ```
 WOW,之前的你肯定只在`script`标签中写过JavaScript。
