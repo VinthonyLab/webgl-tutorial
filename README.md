@@ -29,5 +29,6 @@
 
 # 目录
 
-1. [开启轮回之门](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/lesson1.md)
-2. [Colorful Days](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/lesson2.md)
+1. [画个三角形](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/lesson1.md)
+2. [上色](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/lesson2.md)
+3. [转换](https://github.com/VinthonyLab/webgl-tutorial/blob/master/articles/lesson3.md)
