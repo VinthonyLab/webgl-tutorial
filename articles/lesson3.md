@@ -45,13 +45,13 @@
 
 故对于坐标点(x0,y0,z0)和目标坐标点(xs,ys,zs),如果转动了`Θ`角度：
 
-![eq1](http://www.sciweavers.org/tex2img.php?eq=%20%20%5Cfrac%7Bx0%7D%7B%5Csqrt%7B%20x0%5E%7B2%7D%2B%20y0%5E%7B2%7D%20%7D%20%7D%20%3D%20cos%20%5Calpha%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
+![render 3](https://cloud.githubusercontent.com/assets/4397546/10417768/b43915cc-7079-11e5-8193-a657b02b78f0.png)
 
-![eq2](http://www.sciweavers.org/tex2img.php?eq=%20xs%20%3D%20cos%28%20%5Calpha%20%2B%20%5Ctheta%20%29%20%2A%20%20%5Csqrt%7B%20x0%5E%7B2%7D%20%2B%20%20y0%5E%7B2%7D%20%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
+![render 1](https://cloud.githubusercontent.com/assets/4397546/10417766/b12739ea-7079-11e5-8897-aff2714407bf.png)
 
 根据三角形倍角公式得到：
 
-![eq3](http://www.sciweavers.org/tex2img.php?eq=cos%28%20%5Calpha%20%2B%20%20%5Ctheta%20%29%20%3D%20cos%20%20%5Calpha%20cos%20%5Ctheta%20%20-%20sin%20%5Calpha%20sin%20%5Ctheta%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
+![render 2](https://cloud.githubusercontent.com/assets/4397546/10417767/b2bf0ddc-7079-11e5-9daf-a0053286e359.png)
 
 综上可以得到：
 
