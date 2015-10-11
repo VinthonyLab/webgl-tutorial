@@ -21,7 +21,13 @@
 
 在这里推荐使用最新版本的Chrome浏览器，默认启动WebGL
 
-### 3.本文基于自己对于[learningwebgl.com](http://learningwebgl.com/blog/?page_id=1217)的理解
+### 3.参考内容
+
+* [ogldev](http://ogldev.atspace.co.uk/)
+* [tomdalling-modern-opengl](http://www.tomdalling.com/blog/category/modern-opengl/)
+* [opengl-tutorial](http://www.opengl-tutorial.org/)
+* [webglfundamentals](http://webglfundamentals.org/webgl/lessons/webgl-less-code-more-fun.html)
+* [learningwebgl.com](http://learningwebgl.com/blog/?page_id=1217)
 
 ### 4.本文所有内容都属于自己理解
 

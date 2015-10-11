@@ -43,7 +43,7 @@
 
 ![qq20151011-1](https://cloud.githubusercontent.com/assets/4397546/10416104/a97576ca-7039-11e5-924e-56d16a0ea443.png)
 
-故对于坐标点(x0,y0,z0)和目标坐标点(xs,ys,zs),如果转动了`Θ`角度：
+故对于坐标点(x0,y0,z0)和目标坐标点(xr,yr,zr),如果转动了`Θ`角度：
 
 ![render 3](https://cloud.githubusercontent.com/assets/4397546/10417768/b43915cc-7079-11e5-8193-a657b02b78f0.png)
 
@@ -55,8 +55,8 @@
 
 综上可以得到：
 
-`cosΘx0 - sinΘy0 = xt`
-`cosΘy0 + sinΘx0 = yt`
+`cosΘx0 - sinΘy0 = xr`
+`cosΘy0 + sinΘx0 = yr`
 
 ```
 
