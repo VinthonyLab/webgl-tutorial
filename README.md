@@ -26,8 +26,9 @@
 * [ogldev](http://ogldev.atspace.co.uk/)
 * [tomdalling-modern-opengl](http://www.tomdalling.com/blog/category/modern-opengl/)
 * [opengl-tutorial](http://www.opengl-tutorial.org/)
-* [webglfundamentals](http://webglfundamentals.org/webgl/lessons/webgl-less-code-more-fun.html)
+* [webglfundamentals](http://webglfundamentals.org/)
 * [learningwebgl.com](http://learningwebgl.com/blog/?page_id=1217)
+* [songho.ca](http://www.songho.ca/)
 
 ### 4.本文所有内容都属于自己理解
 

@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>lesson 05</title>
-	<meta charset='utf8'>
+	<title>lesson 06</title>
 	<link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
 	<script id="shader-fs" type="x-shader/x-fragment">
 	  precision mediump float;
-	  varying vec4 vColor;
+
+	  varying vec4 color;
 	  void main(void) {
-	    gl_FragColor = vColor;
+	    gl_FragColor = color;
+
 	  }
 	</script>
 
 	<script id="shader-vs" type="x-shader/x-vertex">
 	  attribute vec3 aVertexPosition;
 	  attribute vec4 aVertexColor;
-	  varying vec4 vColor;
-	  uniform mat4 uMVMatrix;
+
+	  uniform mat4 rMatrix;
+
+	  varying vec4 color;
 
 	  void main(void) {
-	    gl_Position = uMVMatrix * vec4(aVertexPosition, 1.0);
-	    vColor = aVertexColor;
+	    gl_Position = rMatrix * vec4(aVertexPosition, 1.0);
+	  	color = aVertexColor;
 	  }
 	</script>
 	
@@ -28,28 +31,59 @@
 	var gl;
 	var shaderProgram;
 	var vertices = [
-	//       x        y      z
-			0.0,	 1.0,	0.0,
-		   -1.0,	-1.0,	0.0,
-			1.0,	-1.0,	0.0
-		];
-	var colors = [
-	//   r  g    b   a
-		1.0,0.0,0.0,1.0,
-		0.0,1.0,0.0,1.0,
-		0.0,0.0,1.0,1.0
-	];	
-	var tMatrix = [
-	//   x     y    z    w
-	     1.0, 0.0, 0.0, 0.0,
-	     0.0, 1.0, 0.0, 0.0,
-	     0.0, 0.0, 1.0, 0.0,
-	     0.3, 0.3, 0.3, 1.0
-	];
-	var triangleVertexPositionBuffer;
-	var triangleVertexColorBuffer;
-	var scale = 0;
+            // Front face
+             0.0,  0.7,  0.0,
+            -0.7, -0.7,  0.7,
+             0.7, -0.7,  0.7,
 
+            // Right face
+             0.0,  0.7,  0.0,
+             0.7, -0.7,  0.7,
+             0.7, -0.7, -0.7,
+
+            // Back face
+             0.0,  0.7,  0.0,
+             0.7, -0.7, -0.7,
+            -0.7, -0.7, -0.7,
+
+            // Left face
+             0.0,  0.7,  0.0,
+            -0.7, -0.7, -0.7,
+            -0.7, -0.7,  0.7
+        ];
+     var colors = [
+            // Front face
+            1.0, 0.0, 0.0, 1.0,
+            0.0, 1.0, 0.0, 1.0,
+            0.0, 0.0, 1.0, 1.0,
+
+            // Right face
+            1.0, 0.0, 0.0, 1.0,
+            0.0, 0.0, 1.0, 1.0,
+            0.0, 1.0, 0.0, 1.0,
+
+            // Back face
+            1.0, 0.0, 0.0, 1.0,
+            0.0, 1.0, 0.0, 1.0,
+            0.0, 0.0, 1.0, 1.0,
+
+            // Left face
+            1.0, 0.0, 0.0, 1.0,
+            0.0, 0.0, 1.0, 1.0,
+            0.0, 1.0, 0.0, 1.0
+        ];    
+    	var rMatrix = [
+	//   x     			y    			z    w
+	     
+	     Math.cos(0.3),  0.0, -Math.sin(0.3), 0.0,
+	     0.0, 			 1.0, 			0.0, 0.0,
+	     Math.sin(0.3),  0.0, Math.cos(0.3), 0.0,
+	     0.0, 			 0.0, 			0.0, 1.0
+	];
+   
+	var rotate = 0.0;
+
+	var triangleVertexPositionBuffer;
 
 	function initGL(canvas){
 		try{
@@ -105,58 +139,55 @@
 		shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");	
 		gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
 
-		shaderProgram.colorInfoAttribute = gl.getAttribLocation(shaderProgram,"aVertexColor");
-		gl.enableVertexAttribArray(shaderProgram.colorInfoAttribute);
-		shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram,"uMVMatrix");
+		shaderProgram.vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
+		gl.enableVertexAttribArray(shaderProgram.vertexColorAttribute);
+
+		shaderProgram.rMatrixUniform = gl.getUniformLocation(shaderProgram,"rMatrix");
 	}
 	function initBuffers(){
-		// for vertex
 		triangleVertexPositionBuffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 		triangleVertexPositionBuffer.itemSize = 3;
-		triangleVertexPositionBuffer.numItems = 3;
+		triangleVertexPositionBuffer.numItems = 12;
 
-		// for color
 		triangleVertexColorBuffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
 		triangleVertexColorBuffer.itemSize = 4;
-		triangleVertexColorBuffer.numItems = 3;
+		triangleVertexColorBuffer.numItems = 12;
 	}
-
 	function drawScene(){
 		gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-		
 		gl.bindBuffer(gl.ARRAY_BUFFER,triangleVertexPositionBuffer);
 		gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute,triangleVertexPositionBuffer.itemSize,gl.FLOAT,false,0,0);
 		gl.bindBuffer(gl.ARRAY_BUFFER,triangleVertexColorBuffer);
-		gl.vertexAttribPointer(shaderProgram.colorInfoAttribute,triangleVertexColorBuffer.itemSize, gl.FLOAT,false,
-			0,0);
-		gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform,false,new Float32Array(tMatrix));
+		gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, triangleVertexColorBuffer.itemSize,gl.FLOAT,false,0,0);
+		gl.uniformMatrix4fv(shaderProgram.rMatrixUniform,false,new Float32Array(rMatrix));
 		gl.drawArrays(gl.TRIANGLES,0,triangleVertexPositionBuffer.numItems);
 	}
 	function trik(){
 		requestAnimationFrame(trik);
-		drawScene();
+	 	drawScene();
 		update();
 	}
 	function update(){
-		scale += 0.01;
-		tMatrix = [
-	//   x     y    z    w
-	     Math.sin(scale), 0.0, 				0.0, 				0.0,
-	     0.0,             Math.sin(scale),  0.0, 				0.0,
-	     0.0,             0.0, 				Math.sin(scale), 	0.0,
-	     0.0,             0.0, 				0.0, 				1.0
-	];
+		 rotate += 0.01;
+		 rMatrix = [
+	//   x     			y    			z    w
+	     Math.cos(rotate),  0.0, -Math.sin(rotate), 0.0,
+	     0.0, 			 1.0, 			0.0, 0.0,
+	     Math.sin(rotate),  0.0, Math.cos(rotate), 0.0,
+	     0.0, 			 0.0, 			0.0, 1.0
+		];
 	}
 	 function webGLStart(){
 	 	var canvas = document.getElementById("lesson01-canvas");
 	 	initGL(canvas);
 	 	initShaders();
 	 	initBuffers();
+
 	 	gl.clearColor(0.0, 0.0, 0.0, 1.0);
 	 	gl.enable(gl.DEPTH_TEST);
 	 	trik();
@@ -164,6 +195,7 @@
 	</script>
 </head>
 <body onload="webGLStart();" style="background:#333">
+
 <canvas id='lesson01-canvas' style='border:none;' width="500" height="500"></canvas>
 <br/>
 </body>
