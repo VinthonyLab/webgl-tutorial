@@ -84,7 +84,7 @@
 	var rotate = 0.0;
 
 	var triangleVertexPositionBuffer;
-
+	var xMatrix = [];
 	function initGL(canvas){
 		try{
 			gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
@@ -144,7 +144,6 @@
 
 		shaderProgram.rMatrixUniform = gl.getUniformLocation(shaderProgram,"rMatrix");
 		shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram,"pMatrix");
-		shaderProgram.tMatrixUniform = gl.getUniformLocation(shaderProgram,"tMatrix");
 		pMatrix = makePerspective(numTodeg(80),gl.viewportWidth/gl.viewportHeight,8,10);
 	}
 	function initBuffers(){
@@ -169,7 +168,6 @@
 		gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, triangleVertexColorBuffer.itemSize,gl.FLOAT,false,0,0);
 		gl.uniformMatrix4fv(shaderProgram.rMatrixUniform,false,new Float32Array(rMatrix));
 		gl.uniformMatrix4fv(shaderProgram.pMatrixUniform,false,new Float32Array(pMatrix));
-		// gl.uniformMatrix4fv(shaderProgram.tMatrixUniform,false,new Float32Array(tMatrix));
 		gl.drawArrays(gl.TRIANGLES,0,triangleVertexPositionBuffer.numItems);
 	}
 	function trik(){
