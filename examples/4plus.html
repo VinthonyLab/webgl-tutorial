@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>lesson 04</title>
+	<title>lesson 04 plus</title>
 	<link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
 	<script id="shader-fs" type="x-shader/x-fragment">
 	  precision mediump float;
@@ -144,7 +144,7 @@
 
 		shaderProgram.rMatrixUniform = gl.getUniformLocation(shaderProgram,"rMatrix");
 		shaderProgram.cMatrixUniform = gl.getUniformLocation(shaderProgram,"cMatrix");
-		cMatrix = makeInverse(lookat([],[0.2,0,0.3],[0,-10,0],[0,1,0]));
+		cMatrix = makeInverse(lookat([],[-0.3,0,0.5],[0,-2,0],[0,1,0]));
 	}
 	function initBuffers(){
 		triangleVertexPositionBuffer = gl.createBuffer();
@@ -382,7 +382,6 @@
 
 	 	gl.clearColor(0.0, 0.0, 0.0, 1.0);
 	 	gl.enable(gl.DEPTH_TEST);
-	 	// trik();
 	 	drawScene();
 	 }
 	</script>
